@@ -10,8 +10,12 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
 app.use("/users", UserRoutes);
+
+// En el lado del servidor
+app.get("/csrf-token", (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
 
 try {
   await db.authenticate();
